@@ -60,3 +60,18 @@
     background: rgb(12, 119, 213);
     color: white;
 }
+.remove-icon {
+    color: #212121;
+    opacity: 0.5;
+    float: right;
+    margin-top: 8px;
+    font-size: 17px !important;
+}
+
+.remove-icon:hover {
+    opacity: 1;
+}
+
+.webix_selected .remove-icon:hover {
+    color: #212121;
+}

@@ -9,8 +9,8 @@ export default class SettingsView extends JetView {
 					value: "ru",
 					inputWidth: 250,
 					options: [
-                        {id: "en", value: "EN"},
-						{id: "ru", value: "RU"}	
+						{id: "en", value: "EN"},
+						{id: "ru", value: "RU"}
 					]}
 			]
 		};

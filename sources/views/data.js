@@ -1,74 +1,41 @@
 import {JetView} from "webix-jet";
-
+import CustomDatatable from "./customDatatable";
+import {countries} from "../models/countries";
+import {statuses} from "../models/statuses";
 
 export default class DataView extends JetView {
 	config() {
-
-		let headerLabel = {view: "label", label: "Data", align: "center", height: 50, css: "settings_label"};
-
-		let side = {
-			view: "list",
-			localId: "mylist",
-			width: 200,
-			select: true,
-			scroll: false,
-			data: ["Countries", "Statuses"],
-			multiview:true,
-			
+		let header = {
+			view: "label", label: "Data", align: "center", height: 50, css: "settings_label"
 		};
 
-		let countriesView = {
-			view: "datatable",
-			localId: "countries",
-			css: "align-center",
-			select: true,
-			editaction: "dblclick",
-			columns: [
-				{id: "id", header: "Short Name"},
-				{id: "Name", header: "Fill Name", fillspace: true, editor: "text", sort: "string"}
-			]
-		};
-
-		let statusesView = {
-			view: "datatable",
-			Localid: "statuses",
-			editaction: "dblclick",
-			css: "align-center",
-			select: true,
-			columns: [
-				{id: "Name", header: "Name", fillspace: true, editor: "text", sort: "string"},
-				{id: "Icon", header: "Icon", fillspace: true, editor: "text", sort: "string"}
-			]
-		};
-
-		let main = {
-			cells: [
-				{localIdd: "Counries", rows: [countriesView]},
-				{localIdd: "Statuses", rows: [statusesView]}
-			]
-		};
-
-		const fotbar = {
-			view: "toolbar",
-			elements: [
-				{},
-				{view: "button", value: "Add", align: "left", width: 150},
-				{view: "button", label: "Delete", width: 150}
+		let dataSide = {
+			view: "tabbar",
+			localId: "data:tabbar",
+			multiview: true,
+			options: [
+				{id: "dataCountries", value: "Countries"},
+				{id: "dataStatuses", value: "Statuses"}
 			]
 		};
 
 		let ui = {
 			rows: [
-				headerLabel,
-				{cols: [side, main]},
-				fotbar
+				header,
+				{
+					rows: [
+						dataSide,
+						{
+							cells: [
+								{id: "dataCountries", $subview: new CustomDatatable(this.app, "", countries)},
+								{id: "dataStatuses", $subview: new CustomDatatable(this.app, "", statuses)}
+							]
+						}
+					]
+				}
 			]
 		};
 
 		return ui;
-	}
-
-	init() {
-
 	}
 }
